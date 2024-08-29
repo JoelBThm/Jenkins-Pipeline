@@ -57,8 +57,8 @@ pipeline {
         always {
             echo 'Sending email notifications...'
             // Email notification step
-            mail to: 'dev-team@example.com',
-                 subject: "Pipeline ${currentBuild.fullDisplayName} finished",
+             mail to: 'dev-team@example.com',
+              subject: "Pipeline ${currentBuild.fullDisplayName} finished",
                  body: "Pipeline ${currentBuild.fullDisplayName} finished with status: ${currentBuild.currentResult}"
         }
     }
