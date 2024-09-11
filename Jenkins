@@ -5,43 +5,43 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the project...'
-             
+                // Here you could add build commands like `mvn clean install`
             }
         }
         stage('Unit Tests') {
             steps {
                 echo 'Running unit tests...'
-             
+                // Add test commands here, e.g., `mvn test`
             }
         }
         stage('Code Analysis') {
             steps {
                 echo 'Performing code analysis...'
-          
+                // Add code analysis commands here, e.g., `mvn sonar:sonar`
             }
         }
         stage('Security Scan') {
             steps {
                 echo 'Performing security scan...'
-               
+                // Add security scan commands here, e.g., `dependency-check`
             }
         }
         stage('Deploy to Staging') {
             steps {
                 echo 'Deploying to staging...'
-            
+                // Add deployment commands here
             }
         }
         stage('Integration Tests on Staging') {
             steps {
                 echo 'Running integration tests on staging...'
-           
+                // Add integration test commands here
             }
         }
         stage('Deploy to Production') {
             steps {
                 echo 'Deploying to production...'
-             
+                // Add deployment commands here
             }
         }
     }
@@ -49,6 +49,28 @@ pipeline {
     post {
         always {
             echo 'Pipeline finished.'
+            emailext(
+                subject: "Jenkins Pipeline: ${currentBuild.fullDisplayName}",
+                body: """<p>Pipeline <b>${currentBuild.fullDisplayName}</b> has completed.</p>
+                         <p>Status: ${currentBuild.currentResult}</p>""",
+                recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+            )
+        }
+        success {
+            emailext(
+                subject: "SUCCESS: Jenkins Pipeline: ${currentBuild.fullDisplayName}",
+                body: """<p>Pipeline <b>${currentBuild.fullDisplayName}</b> succeeded.</p>
+                         <p>Status: ${currentBuild.currentResult}</p>""",
+                recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+            )
+        }
+        failure {
+            emailext(
+                subject: "FAILURE: Jenkins Pipeline: ${currentBuild.fullDisplayName}",
+                body: """<p>Pipeline <b>${currentBuild.fullDisplayName}</b> failed.</p>
+                         <p>Status: ${currentBuild.currentResult}</p>""",
+                recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+            )
         }
     }
 }
