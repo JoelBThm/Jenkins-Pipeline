@@ -53,7 +53,7 @@ pipeline {
                 subject: "Jenkins Pipeline: ${currentBuild.fullDisplayName}",
                 body: """<p>Pipeline <b>${currentBuild.fullDisplayName}</b> has completed.</p>
                          <p>Status: ${currentBuild.currentResult}</p>""",
-                recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+                recipientProviders: [[$class: 'joelbiju101@gmail.com']]
             )
         }
         success {
@@ -61,7 +61,7 @@ pipeline {
                 subject: "SUCCESS: Jenkins Pipeline: ${currentBuild.fullDisplayName}",
                 body: """<p>Pipeline <b>${currentBuild.fullDisplayName}</b> succeeded.</p>
                          <p>Status: ${currentBuild.currentResult}</p>""",
-                recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+                recipientProviders: [[$class: 'joelbiju101@gmail.com']]
             )
         }
         failure {
@@ -69,7 +69,7 @@ pipeline {
                 subject: "FAILURE: Jenkins Pipeline: ${currentBuild.fullDisplayName}",
                 body: """<p>Pipeline <b>${currentBuild.fullDisplayName}</b> failed.</p>
                          <p>Status: ${currentBuild.currentResult}</p>""",
-                recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+                recipientProviders: [[$class: 'joelbiju101@gmail.com']]
             )
         }
     }
